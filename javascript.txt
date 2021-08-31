@@ -13,16 +13,13 @@ window.addEventListener('onEventReceived', function (obj) {
   	const event = obj.detail.event;
   	console.log("Event")
   	console.log(obj.detail.event)
+  	if(!checkPrivileges(data)) {
+      return true;
+    }
   
 	//if (obj.detail.listener !== "message") return;
   	//if (data["displayName"] == "StreamElements"	) return;
 	
-  
-  
-   
-
-	
-  
   	if(event.type == "follower" && {{followerEnabled}} && {{followerIncrease}} != null ){
       console.log("Following12")
       eventIncreaseTime( {{followerIncrease}} )
@@ -241,3 +238,21 @@ function playAudio(sound, volume){
 		audio.volume = volume * .01;
 		audio.play();
 	}
+
+let checkPrivileges = (data) => {
+    let required=fieldData.privileges;
+    let userState = {
+        'mod': parseInt(data.tags.mod),
+        'sub': parseInt(data.tags.subscriber),
+        'vip': (data.tags.badges.indexOf("vip") !== -1),
+        'badges': {
+            'broadcaster': (data.userId === data.tags['room-id']),
+        }
+    };
+    if (userState.badges.broadcaster) return true;
+    else if (required === "mods" && userState.mod) return true;
+    else if (required === "vips" && (userState.mod || userState.vip)) return true;
+    else if (required === "subs" && (userState.mod || userState.vip || userState.sub)) return true;
+    else if (required === "everybody") return true;
+    else return false;
+};
