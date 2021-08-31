@@ -7,8 +7,13 @@ var isPaused = false;
 var eventQueue = [];
  $("#event").fadeOut(500); 
 displayEvent()
+
+window.addEventListener('onWidgetLoad', function (obj) {
+    fieldData = obj['detail']['fieldData'];
+    channelName = obj['detail']['channel']['username'];
+});
+
 window.addEventListener('onEventReceived', function (obj) {
-	
 	let data = obj.detail.event.data;
   	const event = obj.detail.event;
   	console.log("Event")
