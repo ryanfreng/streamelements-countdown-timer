@@ -1,12 +1,23 @@
 {
-  
-"chatCommand": {
-  "type": "text",
-  "label": "Chat Command",
-  "value": "!timer",
-  "group":"Command"
-},
-"mainTextColor": {
+  "chatCommand": {
+    "type": "text",
+    "label": "Chat Command",
+    "value": "!timer",
+    "group":"Command"
+  },
+  "privileges": {
+    "type": "dropdown",
+    "label": "Who can participate:",
+    "value": "everybody",
+    "options": {
+      "everybody": "Everybody",
+      "subs": "Subs",
+      "vips": "VIPS",
+      "mods": "Mods",
+      "broadcaster":"Broadcaster"
+    }
+  },
+  "mainTextColor": {
     "type": "colorpicker",
     "label": "Text Color",
     "value": "#fdb336",
